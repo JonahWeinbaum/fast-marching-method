@@ -23,9 +23,7 @@ File Structure:
 ├── fmm.py              # Methods for computing distance field via FMM
 ├── geodesic.py         # Methods for tracing geodesic paths & contours
 ├── utils.py            # Utility functions for mesh visualization
-├── meshes/             # Folder containing mesh files
-│   └── bunny.obj       # Stanford bunny as default mesh
-│   └── <mesh files>
+├── bunny.obj            # Stanford bunny mesh as default mesh
 ├── requirements.txt    # Dependencies (trimesh, viser, etc.)
 ```
 
@@ -67,7 +65,7 @@ Then open http://localhost:8080 in your local browser.
 
 Changing the mesh:
 ------------------
-1. Place mesh file in meshes/
+1. Place mesh file in root directory
 2. Set MESH_NAME variable in main.py
 3. Run python3 main.py
 

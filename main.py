@@ -8,7 +8,7 @@ import viser.transforms as tf
 import numpy as np
 
 # Mesh setup
-MESH_FOLDER = "meshes"
+MESH_FOLDER = "."
 MESH_NAME = "bunny.obj"
 MESH_SCALE_FACTOR = 20
 
