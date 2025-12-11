@@ -9,7 +9,7 @@ import numpy as np
 
 # Mesh setup
 MESH_FOLDER = "meshes"
-MESHES = ["bunny"]
+MESH_NAME = "bunny.obj"
 MESH_SCALE_FACTOR = 20
 
 SERVER = None
@@ -114,15 +114,23 @@ def update(event):
         path = trace_geodesic(MESH, DISTANCES, source_idx, sink_idx)
         path = path @ T_MATRIX.T
 
-        # Remove old element
+        # Remove old elements
         SERVER.scene.remove_by_name("/geodesic")
-
-        # Add new element
+        SERVER.scene.remove_by_name("/sink_marker")
+        
+        # Add new elements
         SERVER.scene.add_line_segments(
             "/geodesic",
             points = path,
             colors = (0, 150, 0),
             line_width = 3.0
+        )
+
+        SERVER.scene.add_icosphere(
+            name="/sink_marker",
+            radius=np.linalg.norm(MESH.bounding_box.extents)*POINT_SCALE_FACTOR,
+            color=(0, 150, 0),
+            position=tuple(sink_pos_world), 
         )
     else: 
         # Recalculate all fields
@@ -218,7 +226,7 @@ def init():
 
     # Load in first mesh in MESHES
     # ensuring we only consider a connected component
-    MESH = trimesh.load(MESH_FOLDER + "/" +  MESHES[0] + ".obj").split(only_watertight=False)[0]
+    MESH = trimesh.load(MESH_FOLDER + "/" +  MESH_NAME).split(only_watertight=False)[0]
 
     # Translate and rotate mesh so it is upright
     # and centroid is at origin
