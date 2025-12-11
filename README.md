@@ -1,4 +1,3 @@
-======================================================================
 Fast Marching Method (FMM) for Geodesic Distances on Meshes
 ======================================================================
 
@@ -18,6 +17,7 @@ Sethian, J.A. (1996). A Fast Marching Level Set Method for Monotonically Advanci
 
 File Structure:
 ------
+```
 .
 ├── main.py             # Main entry point which launches server
 ├── fmm.py              # Methods for computing distance field via FMM
@@ -27,7 +27,7 @@ File Structure:
 │   └── bunny.obj       # Stanford bunny as default mesh
 │   └── <mesh files>
 ├── requirements.txt    # Dependencies (trimesh, viser, etc.)
-
+```
 
 Requirements:
 -------------
