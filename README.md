@@ -81,27 +81,30 @@ Visualizer Features:
 Learned Material:
 ----------------
 In implementing the actual FMM method for computing
-geodesics I learn about numerical methods to approximate
+geodesics I learned about numerical methods to approximate solutions to
 differential equations and how they can be viewed as fundamentally
-geometric problems. The FMM method itself is very similar to Dijkstra's
+geometric problems.
+
+The FMM method itself is very similar to Dijkstra's
 algorithm on graphs so it was much easier implement than I had originally
 thought. What was not easy, however, was implementing backtracking
 along the gradient to trace out geodesic paths. This required
 much more handling of degeneracies in order to get sub-facet segments
 included in my path. The original paper regarding FMM for solving
-the eikonal equation of meshes is actually fairly vague about
-how they handled a lot of these degeneracies so this was certainly
+the eikonal equation on meshes is actually fairly vague about
+how they handled a lot of these degeneracies, so this was certainly
 an exercise in thinking though all the possible cases that can
 occur as we move along the manifold, such that we don't accidentally
 leave the surface and such that the gradient is always well-defined.
 This part taught me the most as it required me to consider many different
 possible ways of approximating solutions to differential equations on meshes
 and many of them did not end up working. I finally landed on a relatively
-simplified strategy which at it's most basic level is just Euler's method
-for solving ODEs. The paper uses this as well but only at points were the
-gradient is not stable -- I chose to use it everywhere, and I think the results
-are more than decent enough from a visual standpoint. At some point I would
-like to fully implement their use of Huen's method but it uses many control
+simplified strategy which, at it's most basic level, is just Euler's method
+for solving ODEs. The paper uses this as well but only at points where the
+gradient is not stable (which they call 'sonic points'). I chose to use it everywhere,
+and I think the results are more than decent enough from a visual standpoint.
+
+At some point I would like to fully implement their use of Huen's method but it uses many control
 points from adjacent triangles and I could not figure out how to handle degeneracies
 at the boundary with this method. Over all, this was the most I've ever
 had to actually reason about ODEs especially from a geometric point and that
