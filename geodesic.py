@@ -238,11 +238,15 @@ def trace_contours(mesh, distances, num_levels=20):
                 d1, d2 = dists[i], dists[j]
 
                 # d1 on one side of level, d2 on the other
+                # find intersection of the segment between these
+                # points and the contour
                 if (d1 - level)*(d2 - level) < 0:
                     t = (level - d1) / (d2 - d1)
                     point = verts[i] + t*(verts[j] - verts[i])
                     edge_points.append(point)
-
+                    
+            # Two edges of the triangle cross the contour line
+            # connect their intersections with the contour by a line
             if len(edge_points) == 2:
                 seg = np.array(edge_points)
                 line_segments.append(seg)
