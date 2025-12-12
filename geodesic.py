@@ -220,34 +220,32 @@ def visualize_gradient(mesh, distances, samples = 5000, length=0.002):
     return segments
 
 
-def trace_contours(mesh, distances, num_levels=20, spline_points=100):
-    # Compute the num_level level sets of T using splines for smooth interpolation
-    
-    V = mesh.vertices
-    F = mesh.faces
+def trace_contours(mesh, distances, num_levels=20):
+    # Compute the num_level level sets of T
+
     min_d, max_d = distances.min(), distances.max()
     delta = (max_d - min_d) / num_levels
 
     line_segments = []
 
-    for f in F:
-        verts = V[f]
+    for f in mesh.faces:
+        verts = mesh.vertices[f]
         dists = distances[f]
 
         for level in np.arange(min_d, max_d, delta):
             edge_points = []
             for i, j in [(0,1),(1,2),(2,0)]:
                 d1, d2 = dists[i], dists[j]
+
+                # d1 on one side of level, d2 on the other
                 if (d1 - level)*(d2 - level) < 0:
                     t = (level - d1) / (d2 - d1)
                     point = verts[i] + t*(verts[j] - verts[i])
                     edge_points.append(point)
 
             if len(edge_points) == 2:
-                pts = np.array(edge_points)
-                t = np.linspace(0, 1, spline_points)
-                smooth_pts = (1-t)[:,None]*pts[0] + t[:,None]*pts[1]
-                line_segments.append(smooth_pts)
+                seg = np.array(edge_points)
+                line_segments.append(seg)
 
     # Convert to (N, 2, 3) shape necessary for viser
     all_pairs = []
